@@ -23,7 +23,7 @@
         {
             log.Write("Write");
         }
-    }
+    
  Имя лога log.
              
  
