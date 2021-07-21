@@ -1,4 +1,5 @@
-Класс лога, написан как класс, библиотека или консольное приложение(для теста).
+Класс лога, написан как класс, библиотека или консольное приложение(для теста). Настройки хранятся в самом кллассе.
+
 Лог имеет несколько режимов работы:
  1. Файловый (LogType.File)
  2. EventLog (LogType.Event)
@@ -24,45 +25,72 @@
             log.Write("Write");
         }
     
- Имя лога log.
-             
- 
-// class Program
-//    {
-//        static readonly Log log = new Log();
+Имя лога log во всех иных случаях лог именован.
 
-//        static async Task Main()
-//        {
-//            log.Write("Write");
-//            log.Info("Info");
-//            log.Error("Error");
+Имеется возможность отслеживать события записи определенных типов:     
+ 1. OnWrite
+ 2. OnInfo
+ 3. OnError    
+     
+При необходимости лог можно удалить 
 
-//            Log l1 = new Log();
-//            await l1.Write("Write");
+ class Program
+    {
+        static readonly Log log = new Log();
 
-//            Log l2 = new Log("log2");
-//            await l2.Write("Write");
+        static async Task Main()
+        {
+            log.Write("Write");
+            log.Dispose();
+        }
+     
+     
+     
+Полный пример:
 
-//            Log l3 = new Log("log 3", LogType.File);
-//            await l3.Write("Write");
+namespace logClass
+{
+    class Program
+    {
+        static readonly Log log = new Log();
 
-//            //Log l4 = new Log(LogType.File);
-//            //await l4.Write("Write 2");
+        static async Task Main()
+        {
+            log.Write("Write");
+            log.Info("Info");
+            log.Error("Error");
 
-//            await LogManager.Write("Write");
+            Log l1 = new Log();
+            await l1.Write("Write");
 
-//            foreach (var v in LogManager.Log_List)
-//                System.Console.WriteLine(v.FileName);
+            Log l2 = new Log("log2");
+            await l2.Write("Write");
 
-//            System.Console.WriteLine(LogManager.Log_List.Count.ToString());
-          
-//            for (int i= LogManager.Log_List.Count-1; i>=0;i--)
-//             LogManager.Log_List[i].Dispose();
-          
+            Log l3 = new Log("log 3", LogType.File);
+            await l3.Write("Write");
 
-//            foreach (var v in LogManager.Log_List)
-//                System.Console.WriteLine(v.FileName);
+            Log l4 = new Log(LogType.File);
+            await l4.Write("Write 2");
 
-//            System.Console.WriteLine(LogManager.Log_List.Count.ToString());
 
-//            System.Console.ReadKey();
+
+            await LogManager.Write("Write");
+
+            foreach (var v in LogManager.Log_List)
+                System.Console.WriteLine(v.FileName);
+
+            System.Console.WriteLine(LogManager.Log_List.Count.ToString());
+
+            for (int i = LogManager.Log_List.Count - 1; i >= 0; i--)
+                LogManager.Log_List[i].Dispose();
+
+
+            foreach (var v in LogManager.Log_List)
+                System.Console.WriteLine(v.FileName);
+
+            System.Console.WriteLine(LogManager.Log_List.Count.ToString());
+
+            System.Console.ReadKey();
+        }
+    }
+}
