@@ -1,4 +1,33 @@
+Класс лога, написан как класс, библиотека или консольное приложение(для теста).
+Лог имеет несколько режимов работы:
+ 1. Файловый (LogType.File)
+ 2. EventLog (LogType.Event)
+ 3. Файловый и EventLog (LogType.Both)
+
+вНИМАНИЕ! EventLog требует прав администратора для регистрации журнала. При отсутствии прав, запись ведется в журнал Applications / Приложения.
+
+Лог имеет 4 конструктора, которые могут быть объявлены в любом месте. 
+Объявления конструкторов:
+ 1.  Log log = new Log();
+ 2.  Log log = new Log("LogName");
+ 3.  Log log = new Log(LogType.File);
+ 4.  Log log = new Log("LogName", LogType.File);
+
+При создании лога без параметров, создается лог с именем текущей переменной.
+
  class Program
+    {
+        static readonly Log log = new Log();
+
+        static async Task Main()
+        {
+            log.Write("Write");
+        }
+    }
+ Имя лога log.
+             
+ 
+// class Program
 //    {
 //        static readonly Log log = new Log();
 
